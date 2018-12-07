@@ -50,8 +50,11 @@ public class PlayerSessionHandler {
 			if (info == null)
 				return;
 			try {
-				event.player.setGameType(info.gameType);
+				if (event.player instanceof EntityPlayerMP) {
+					((EntityPlayerMP) event.player).interactionManager.setGameType(info.gameType);
+				}
 			} catch (Throwable t) {
+				GUILogin.modLogger.error("Error when set gamemode .",t);
 				/*
 				不知道为什么，如果玩家登录到一半掉线了，这里会拋NullPointerException。求大神解释
 				 */
